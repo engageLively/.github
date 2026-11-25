@@ -37,4 +37,4 @@ Editors and TypeScript read JSDoc, so these comments show up wherever the functi
 ## Tools
 
 - **ESLint** (recommended config plus `eslint-plugin-jsdoc`'s `require-jsdoc` rule for exported functions) and **Prettier** in CI.
-- Tests use the framework's standard runner (Vitest, Jest or `node:test`), with one test file per module next to it or in `tests/`.
+- Tests use the framework's standard runner (Vitest, Jest or `node:test`), with tests next to the module or in `tests/`. Group by module or feature, following the repository's layout.

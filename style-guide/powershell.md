@@ -17,7 +17,7 @@ The hyphens are there so commands can be discovered: given the approved verbs an
 
 ## Comment-based help
 
-Every script and function has comment-based help, placed as the first thing in the function body. `Get-Help` reads it, and so do editors and tools. `.DESCRIPTION` holds the summary, `.OUTPUTS` the Results, and `.NOTES` a `Side effects:` paragraph.
+Use comment-based help for operator-facing scripts, public functions, and operations with meaningful side effects. Put it at the top of a script or as the first thing in a function body so `Get-Help` and editors can read it. Use `.SYNOPSIS` for the summary, `.OUTPUTS` for results, and a `Side effects:` paragraph in `.NOTES`. An obvious private helper can use a short comment where it adds context.
 
 ```powershell
 function Restart-ExportCopyTask {
@@ -55,5 +55,5 @@ Indent with 4 spaces. Put the opening brace at the end of the line (One True Bra
 ## Tools
 
 - **PSScriptAnalyzer** with the default rules, plus `PSUseApprovedVerbs` and `PSProvideCommentHelp`. Each suppression gets a `SuppressMessageAttribute` with a justification.
-- **Pester 5** for tests. Use one `*.Tests.ps1` file per script or module, with `Describe` per function and `It` per behavior. Use `Mock` for external commands. Remember that variables set in an `It` block are visible to mocks through dynamic scope; say so in a comment where a test depends on it.
+- **Pester 5** for tests. Use discoverable `*.Tests.ps1` files grouped by script, module, or workflow. Use `Describe` to group related behaviors and `It` for individual cases. Use `Mock` for external commands. Remember that variables set in an `It` block are visible to mocks through dynamic scope; say so in a comment where a test depends on it.
 - CI parses every script that must run under Windows PowerShell 5.1 with Windows PowerShell 5.1 itself, not just `pwsh`.

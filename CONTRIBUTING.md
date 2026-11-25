@@ -8,7 +8,7 @@ These conventions are built on John Ousterhout's [*Tcl/Tk Engineering Manual*](h
 
 1. **We all do things the same way.** The manual says the exact conventions matter less than everyone following the same ones. Nobody here claims these are the best possible rules; they are the rules we follow.
 2. **Don't be weird.** Every language community has its own conventions for naming, layout, where documentation goes, and which tools check it. We follow them. Python code should look like Python, PowerShell like PowerShell. So there is no single set of syntax rules. There is one page of shared principles, plus one page per language that maps those principles onto that language's conventions.
-3. **No uncommented code, written or approved.** Code arrives with its documentation in the same PR. Missing interface documentation blocks a review; it is not a nit.
+3. **Document the contracts callers rely on.** Public interfaces and operations with meaningful side effects need a summary, results, and side effects in the same PR as the code. A short note is enough for an obvious private helper when it adds useful context. Missing or misleading documentation for a required contract blocks review.
 4. **Every branch and PR has a ticket.** The issue describes the problem the change solves, and the PR links it.
 
 This file lives in the organization's `.github` repository, so GitHub shows it on every engageLively repository that doesn't have its own `CONTRIBUTING.md`. A repository can add its own conventions by adding a `CONTRIBUTING.md` that links back here.
@@ -29,8 +29,14 @@ This file lives in the organization's `.github` repository, so GitHub shows it o
 
 A rule that is not enforced is a suggestion. Each language page names the linter that checks what can be checked mechanically, and CI must pass before merge. Whether documentation explains the *why* cannot be linted; that is the reviewer's job.
 
+## Working with coding assistants
+
+Keep a short checklist in the repository's `AGENTS.md` and link to this guide. Include the rules and checks that matter in that repository, such as the lint and test commands. Use CI for mechanical checks and review to judge whether the contracts and tests tell readers what they need to know.
+
+## Applying the guide to existing code
+
+Apply these rules to new code and to the behavior a PR changes. Add or update the contract when the change affects a documented interface or its side effects. Keep existing filenames and command names when callers depend on them. Renaming a published entry point needs its own compatibility plan.
+
 ## Open questions
 
 - Do we adopt a dated `CHANGES` log per repository (manual §9.1), with incompatible changes flagged so the next person deploying sees them?
-- Some existing files and functions don't follow their language's naming conventions, for example PowerShell scripts named in kebab-case or snake_case, or functions without an approved verb. Do we rename them as they are touched, or leave them alone?
-- How do we bring existing code up to the standard? The proposal is that new and changed code must comply and nothing is rewritten wholesale. A function that gets touched gets its interface documentation.

@@ -68,4 +68,4 @@ Comments go on their own line above the code they explain, written as full sente
 
 - **ruff** for linting and formatting. Select at least `E`, `F`, `I`, `B`, `UP` and `D`, with `[tool.ruff.lint.pydocstyle] convention = "google"`, so that a missing docstring fails CI.
 - **Type hints** on all public functions. Running a type checker (mypy or pyright) is encouraged; pick one per repository.
-- **pytest** for tests. Name each test file `test_<module>.py`, put one test class or group per function, and use fixtures for setup. Use `tmp_path` and `monkeypatch` rather than touching the real filesystem or environment.
+- **pytest** for tests. Use names such as `test_<module>.py` or a feature name that readers can find, and use fixtures for setup. Use `tmp_path` and `monkeypatch` rather than touching the real filesystem or environment.

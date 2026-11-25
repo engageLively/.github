@@ -4,7 +4,7 @@ These principles hold in every language. The language pages say *where* each one
 
 ## 1. Every interface says what a caller needs to know, and nothing else (§3.2)
 
-Every function, script, module, class, role and playbook documents its interface in three parts:
+Document public interfaces, including operator-facing scripts, roles and playbooks, and any operation with meaningful side effects in three parts:
 
 - **Summary:** what it does and why you would call it. Write a high-level summary, not a description of the implementation. For callbacks and entry points, also say who calls it and when.
 - **Results:** what the caller can see right away: the return value or exit status, output, and anything written back through arguments.
@@ -12,11 +12,11 @@ Every function, script, module, class, role and playbook documents its interface
 
 Side effects matter most in our code. Our scripts restart services, move test data and run as root on hosts that people depend on. A reader should never have to read a function's body to find out whether calling it is safe.
 
-Every argument and every field of a data structure, config schema or inventory variable gets a description of what it *means*. Its type is not enough. Where a language has types (type hints, typed parameters), the type goes there and the comment carries only the meaning.
+A short private helper with an obvious purpose can use a one-line description when it adds context. For documented interfaces, describe what each argument and exposed data field, config key or inventory variable *means*. Its type is not enough. Where a language has types (type hints, typed parameters), the type goes there and the comment carries only the meaning.
 
 ## 2. Write the documentation first (§1, §6.5)
 
-Write a file's interface comments before you write any function bodies. This is how you design: you see how the pieces fit together before you get lost in the details. Don't write uncommented code planning to add comments later. In the manual's words, "This simply won't happen."
+Sketch the required interface contracts before writing the implementation. This helps you decide how the pieces fit together and what callers can rely on. Update the contract as the implementation changes, and include both in the same PR.
 
 ## 3. If it is hard to document, it is not clean yet (§6.4)
 

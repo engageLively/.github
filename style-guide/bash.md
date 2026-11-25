@@ -69,4 +69,4 @@ Exit codes are part of the interface. If a function or script uses more than "ze
 ## Tools
 
 - **shellcheck**: every warning is fixed or disabled at that one spot, with a comment saying why.
-- **bats** for tests. Keep tests in a `tests/` directory next to the scripts, with one `.bats` file per script or library. Use fake commands on `PATH` to simulate `systemctl`, `mountpoint` and similar commands.
+- **bats** for tests. Keep tests in a discoverable `tests/` directory. A `.bats` file named after the script or library is a good default. Group workflow tests where readers can find them by behavior. Use fake commands on `PATH` to simulate `systemctl`, `mountpoint` and similar commands.

@@ -6,17 +6,17 @@ Section numbers (§) refer to the [Engineering Manual](https://www.tcl-lang.org/
 
 If you checked something by hand, turn it into a test. A test typed into a terminal is lost once it has run. Every PR that changes behavior adds or updates tests, and CI runs them all.
 
-## 2. Tests mirror the code (§7.2)
+## 2. Make tests easy to find (§7.2)
 
-Have one test file per source file, with a name that makes the pairing obvious (`sync_timer.py` → `test_sync_timer.py`; `install-health-monitor.sh` → `install-health-monitor.bats`). Within a file, have one group of tests per function, in the same order as the code. The goal is that anyone can find the tests for a piece of code without searching.
+A test file named after its source file is a good default (`sync_timer.py` → `test_sync_timer.py`). Group tests by feature or workflow when that makes the behavior easier to find and understand. Use descriptive names and follow the repository's existing layout.
 
 ## 3. Tests must tell correct from incorrect, not just run every line (§7.3)
 
-Running every line is the minimum. Beyond that:
+Test the behavior a caller or operator relies on, including failure paths. Use these cases where they can uncover a bug:
 
-- Take both branches of every `if`, under the conditions that should select each one.
-- Run each loop zero times, once, and more than once.
-- For collections, test the first element, the last, the only one, and one in the middle.
+- Exercise branches that change results, side effects, or recovery behavior.
+- Try zero, one, and multiple items when those cases can behave differently.
+- Test boundary positions in a collection when position matters.
 - Every test asserts something specific. A test that only checks "did not crash" is rarely enough.
 
 Coverage is reported on each PR, but there is no minimum percentage. A percentage target rewards tests that run code without checking it. Instead, reviewers look at the lines in the diff that no test covers and ask why.

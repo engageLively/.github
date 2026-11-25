@@ -21,7 +21,7 @@ Follow the [Ansible community's good practices](https://docs.ansible.com/ansible
 ## Side effects are explicit
 
 - Prefer modules to `command`/`shell`. When you must shell out, set `changed_when` so reported changes are honest, and add `creates`/`removes` or a guard so the task is idempotent.
-- Every role supports `--check --diff` (check mode), or marks the tasks that can't with `check_mode: false` and a comment saying why. Check mode is our preview.
+- Support `--check --diff` as a safe preview, and document what it can validate. If a mutating task cannot be previewed, skip it with `when: not ansible_check_mode`. Ansible executes a task with `check_mode: false` normally even under `--check`. Reserve that override for deliberate read-only probes and explain why the probe must run.
 - Production plays require an explicit confirmation variable (for example `confirm_production_deploy=true`) and a pinned revision, so nothing reaches production by accident or from an unknown commit.
 
 ## Tools
